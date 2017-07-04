@@ -4,16 +4,6 @@ opentsdb
 The opentsdb container runs [OpenTSDB](http://opentsdb.net/) along with
 [HBase](http://hbase.apache.org/).
 
-Version 
--------
-This branch provides version 2.4.0RC1 We load the package from:
-https://github.com/OpenTSDB/opentsdb/releases/download/v2.4.0RC1/opentsdb-2.4.0RC1_all.deb
-
-Version 2.3.0 can be loaded from:
-https://github.com/OpenTSDB/opentsdb/releases/download/v2.3.0/opentsdb-2.3.0_all.deb
-
-
-
 Quick Start
 -----------
 
@@ -46,3 +36,9 @@ The application container can then be started by running:
         --volumes-from opentsdb-data \
         -p 4242:4242 \
         jleight/opentsdb
+
+Contributors
+------------
+
+- Jonathon Leight &lt;jonathon.leight@jleight.com>
+- Mirko Kämpf &lt;mirko.kaempf@gmail.com>
