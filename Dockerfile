@@ -17,25 +17,20 @@ ENV OTSDB_PACKAGE opentsdb-${OTSDB_VERSION}_all.deb
 ENV OTSDB_URL     ${OTSDB_BASEURL}/${OTSDB_PACKAGE}
 ENV COMPRESSION   NONE
 
-RUN echo ${OTSDB_URL}
-RUN echo ${HBASE_URL}
-RUN curl -kL -O "https://github.com/OpenTSDB/opentsdb/releases/download/v2.4.0RC1/opentsdb-2.4.0RC1_all.deb"
-
 RUN set -x \
   && apt-get update \
   && apt-get install -y \
-    gnuplot \ 
     curl \
     supervisor \
+    gnuplot \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
     /tmp/* \
-    /var/tmp/* 
-  
-RUN mkdir -p "${HBASE_HOME}" "${HBASE_DATA}" 
-RUN curl -kL "${HBASE_URL}" | tar -xz -C "${HBASE_HOME}" --strip-components=1 
-
-RUN dpkg -i "${OTSDB_PACKAGE}" \
+    /var/tmp/* \
+  && mkdir -p "${HBASE_HOME}" "${HBASE_DATA}" \
+  && curl -kL "${HBASE_URL}" | tar -xz -C "${HBASE_HOME}" --strip-components=1 \
+  && curl -kL -O "${OTSDB_URL}" \
+  && dpkg -i "${OTSDB_PACKAGE}" \
   && rm "${OTSDB_PACKAGE}"
 
 ADD supervisor.conf /etc/supervisor/conf.d/supervisord.conf
